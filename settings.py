@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 SQL_DEBUG = DEBUG
 HOST = "localhost"
 PORT = 1488
