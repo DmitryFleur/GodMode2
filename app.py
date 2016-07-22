@@ -1,18 +1,18 @@
 import settings
+from db.vas3kru import Vas3kDatabase
 from godmode import GodModeApp
-from db.demo import DemoDatabase
 from models.index import IndexAdminModel
-from models.posts import PostsAdminModel
-from models.retention import RetentionAdminModel
-from models.users import UsersAdminModel
+from models.vas3k_comments import CommentAdminModel
+from models.vas3k_memories import MemoryAdminModel
+from models.vas3k_stories import StoryAdminModel
 
 app = GodModeApp(
-    databases=[DemoDatabase],
+    databases=[Vas3kDatabase],
     models=[
         IndexAdminModel,
-        PostsAdminModel,
-        UsersAdminModel,
-        RetentionAdminModel
+        StoryAdminModel,
+        MemoryAdminModel,
+        CommentAdminModel
     ]
 )
 
