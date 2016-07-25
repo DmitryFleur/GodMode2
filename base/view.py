@@ -1,4 +1,3 @@
-import copy
 import logging
 
 import wtforms
@@ -118,8 +117,5 @@ class BaseView(MethodView):
         fields = {}
         for column_name, column_options in self.fields_obj:
             if column_options["widget"].field is not None:
-                field = copy.copy(column_options["widget"].field)
-                field.label = column_options["widget"].pretty_name
-                field.default = column_options["widget"].default
-                fields[column_name] = field
+                fields[column_name] = column_options["widget"].field
         return type("dummy_form", (wtforms.Form,), fields)

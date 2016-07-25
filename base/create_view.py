@@ -23,8 +23,14 @@ class BaseCreateView(BaseView):
         values = {}
         for field in form:
             field_obj = getattr(form, field.name, None)
-            if field_obj:
-                values[field.name] = field_obj.data
+            if field_obj is not None:
+                data = field_obj.data
+                if not data:
+                    # data is empty, so if field is nullable it's considered as null
+                    widget = self.all_widgets.get(field.name)
+                    if widget and widget.nullable:
+                        data = None
+                values[field.name] = data
 
         try:
             self.model.create(**values)

@@ -11,7 +11,7 @@ from widgets.json import JSONWidget
 from widgets.text import TextWidget
 
 
-class WidgetFactory(object):
+class WidgetFactory:
     MAPPING = {
         sqltypes.DateTime: DatetimeWidget,
         sqltypes.Float: FloatWidget,

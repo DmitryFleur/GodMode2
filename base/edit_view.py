@@ -26,8 +26,14 @@ class BaseEditView(BaseView):
         updates = {}
         for field in form:
             field_obj = getattr(form, field.name, None)
-            if field_obj:
-                updates[field.name] = field_obj.data
+            if field_obj is not None:
+                data = field_obj.data
+                if not data:
+                    # data is empty, so if field is nullable it's considered as null
+                    widget = self.all_widgets.get(field.name)
+                    if widget and widget.nullable:
+                        data = None
+                updates[field.name] = data
 
         if "id" not in updates:
             updates["id"] = id
@@ -38,4 +44,3 @@ class BaseEditView(BaseView):
             raise Rejected("Save error: {}".format(ex))
 
         return render_template("success.html", message="Successfully saved.")
-
